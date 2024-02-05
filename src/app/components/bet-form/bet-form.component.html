@@ -1,0 +1,42 @@
+<form [formGroup]="betForm">
+  <div class="formContainer">
+    <div class="inputContainer">
+      <label for="diceAmount">Nombre</label
+      ><button type="button" class="numberBtn" (click)="onIncrementDice()">
+        +
+      </button>
+      <input
+        type="number"
+        class="numberInput"
+        name="diceAmount"
+        id="diceAmount"
+        value="{{ diceAmount.value }}"
+        formControlName="diceAmount"
+      />
+      <button type="button" class="numberBtn" (click)="onDecrementDice()">
+        -
+      </button>
+    </div>
+    <div class="inputContainer">
+      <label for="faceValue">Valeur</label
+      ><button type="button" class="numberBtn" (click)="onIncrementFace()">
+        +
+      </button>
+      <input
+        type="number"
+        class="numberInput"
+        name="faceValue"
+        id="faceValue"
+        value="{{ faceValue.value }}"
+        formControlName="faceValue"
+      /><button type="button" class="numberBtn" (click)="onDecrementFace()">
+        -
+      </button>
+    </div>
+  </div>
+  <div class="actionBtnContainer">
+    <button type="button" (click)="onbet()">Parier</button>
+    <button type="button">Exact</button>
+    <button type="button" (click)="onDudo()">Dudo</button>
+  </div>
+</form>

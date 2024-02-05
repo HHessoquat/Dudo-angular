@@ -1,0 +1,11 @@
+<div id="playground">
+  <ng-container *ngFor="let player of gameManager.players">
+    <app-player
+      class="{{ player.position }}"
+      [playerId]="player.id"
+    ></app-player>
+  </ng-container>
+  <div *ngIf="!gameManager.endRound" class="betForm">
+    <app-bet-form></app-bet-form>
+  </div>
+</div>

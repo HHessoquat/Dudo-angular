@@ -1,0 +1,39 @@
+<div [formGroup]="playersForm">
+  <fieldset>
+    <legend>Nombre de joueur</legend>
+    <label
+      *ngFor="let option of ['2', '3', '4', '5', '6']"
+      [attr.for]="'nbPlayers' + option"
+    >
+      <input
+        type="radio"
+        [value]="option"
+        name="nbPlayers"
+        [id]="'nbPlayers' + option"
+        formControlName="nbPlayers"
+      />
+      {{ option }}
+    </label>
+  </fieldset>
+  <ng-container *ngIf="nbInput$ | async">
+    <ng-container *ngFor="let currentControl of players.controls; index as i">
+      <form class="inputContainer" [formGroup]="getPlayerByindex(i)">
+        <label for="playerName{{ i }}">Nom du joueur</label>
+        <input
+          type="text"
+          id="playerName{{ i }}"
+          name="name"
+          [formControl]="getPlayersNameControlByIndex(i)"
+        />
+
+        <label for="password{{ i }}">Mot de passe</label>
+        <input
+          type="password"
+          id="password{{ i }}"
+          name="password"
+          [formControl]="getPasswordbyIndex(i)"
+        />
+      </form>
+    </ng-container>
+  </ng-container>
+</div>

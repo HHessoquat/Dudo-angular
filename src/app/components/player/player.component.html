@@ -1,0 +1,26 @@
+<div
+  class="playerContainer {{
+    (round.activePlayer$ | async) === playerId && 'active'
+  }}"
+>
+  <div class="diceContainer">
+    <app-dice
+      class="singleDice"
+      *ngFor="let singleDice of dice"
+      [color]="singleDice.color"
+      [value]="singleDice.value"
+    ></app-dice>
+  </div>
+  <div class="playerInfo">
+    <h2>{{ player.name }}</h2>
+    <p>
+      <span class="infoTitle">dé<span *ngIf="dice.length > 1">s</span> </span>
+      : {{ player.nbDiceLeft }}
+    </p>
+    <p *ngIf="player.lastBet$ | async as lastBet">
+      <span class="infoTitle">enchère : </span>{{ lastBet.diceAmount }}&nbsp;{{
+        lastBet.faceValue
+      }}
+    </p>
+  </div>
+</div>

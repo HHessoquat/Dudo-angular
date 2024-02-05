@@ -1,0 +1,8 @@
+<form [formGroup]="mainForm" (submit)="onSubmit()">
+  <app-setting-form></app-setting-form>
+  <app-multi-settings
+    *ngIf="gameMode === 'multi'"
+    [playersForm]="playerSetting"
+  ></app-multi-settings>
+  <button type="submit" [disabled]="mainForm.invalid">Valider</button>
+</form>
