@@ -1,0 +1,12 @@
+name:  My first WorkFlow
+on: workflow_dispatch
+jobs:
+  premierJob:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mon premier job
+        run: echo "coucou"
+      - name : mes premières instructions
+        run: ls /
+      - name: fin du flow
+        run: echo "bye love"
