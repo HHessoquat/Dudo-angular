@@ -35,8 +35,10 @@
     </div>
   </div>
   <div class="actionBtnContainer">
-    <button type="button" (click)="onbet()">Parier</button>
-    <button type="button">Exact</button>
-    <button type="button" (click)="onDudo()">Dudo</button>
+    <button type="button" (click)="onbet()" [disabled]="betForm.invalid">
+      Parier
+    </button>
+    <button type="button" (click)="onEndRound('exact')">Exact</button>
+    <button type="button" (click)="onEndRound('dudo')">Dudo</button>
   </div>
 </form>

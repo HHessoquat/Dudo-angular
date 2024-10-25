@@ -19,13 +19,14 @@ export class Player {
     position: PlayerPosition,
     nbDiceLeft = 5,
     diceAmount = 0,
-    faceValue = 0
+    faceValue = 0,
+    isPlaying = true
   ) {
     this.id = id;
     this.name = name;
     this.password = password;
     this.nbDiceLeft = nbDiceLeft;
-    this.isPlaying = true;
+    this.isPlaying = isPlaying;
     this.lastBetSubject = new BehaviorSubject<Bet>({
       diceAmount,
       faceValue,
@@ -35,7 +36,7 @@ export class Player {
   }
   loseDice(): void {
     this.nbDiceLeft--;
-    this.nbDiceLeft === 0 && (this.isPlaying = false);
+    this.nbDiceLeft <= 0 && (this.isPlaying = false);
   }
   winDice(): void {
     this.nbDiceLeft < 5 && this.nbDiceLeft++;

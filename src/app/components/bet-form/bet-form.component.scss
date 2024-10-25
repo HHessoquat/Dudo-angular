@@ -3,10 +3,12 @@ form {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 .formContainer {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: center;
   .inputContainer {
     align-items: center;
     gap: 4px;

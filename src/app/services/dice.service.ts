@@ -3,26 +3,49 @@ import { Dice } from '../models/dice.model';
 import { GameSetting } from './gameSetting.service';
 import { Player } from '../entities/player.entity';
 import { color } from '../features/dice';
+import { DiceSet } from '../models/diceSet.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DiceService {
-  constructor(private settings: GameSetting) {}
+  diceSubject!: BehaviorSubject<DiceSet[]>;
+  dices$!: Observable<DiceSet[]>;
+  nbDice!: number;
+  constructor(private settings: GameSetting) {
+    this.diceSubject = new BehaviorSubject([
+      { playerId: 0, dice: [{ value: 1, color: color[0] }] },
+    ]);
+    this.dices$ = this.diceSubject.asObservable();
+  }
 
-  rollDice(players: Player[]): Dice[][] {
-    return players.map((player) => {
-      const playersDice: Dice[] = [];
+  getAllDice(): DiceSet[] {
+    return this.diceSubject.value;
+  }
 
-      for (let i = 0; i < player.nbDiceLeft; i++) {
-        playersDice.push({
-          playerId: i,
-          value: Math.ceil(Math.random() * 6),
-          color: color[player.id],
-        });
-      }
-      return playersDice;
-    });
+  getDiceForPlayer(playerId: Number): DiceSet | null {
+    return (
+      this.diceSubject.value.find(
+        (playersdice) => playersdice.playerId === playerId
+      ) || null
+    );
+  }
+
+  rollDice(players: Player[]): void {
+    this.diceSubject.next(
+      players.map((player) => {
+        const playersDice: Dice[] = [];
+
+        for (let i = 0; i < player.nbDiceLeft; i++) {
+          playersDice.push({
+            value: Math.ceil(Math.random() * 6),
+            color: color[player.id],
+          });
+        }
+        return { playerId: player.id, dice: playersDice };
+      })
+    );
   }
 
   reduceDiceValue(dice: Dice[][]) {
@@ -40,7 +63,8 @@ export class DiceService {
 
     return result;
   }
-  getValueToCheck(diceResult: any) {
+  getValueToCheck(allDice: Dice[][]) {
+    const diceResult = this.reduceDiceValue(allDice);
     const ajustedValues: any = {};
     for (const diceFace in diceResult) {
       diceFace === '1'
@@ -48,5 +72,24 @@ export class DiceService {
         : (ajustedValues[diceFace] = diceResult[diceFace] + diceResult['1']);
     }
     return ajustedValues;
+  }
+
+  setNbDice(players: Player[]): void {
+    this.nbDice = players.reduce((acc, player: Player) => {
+      return acc + player.nbDiceLeft;
+    }, 0);
+  }
+
+  hydrateDice(dices: DiceSet[], nbDice: number): void {
+    this.diceSubject = new BehaviorSubject(dices);
+    this.dices$ = this.diceSubject.asObservable();
+    this.nbDice = nbDice;
+  }
+
+  getDataToSave() {
+    return {
+      dices: this.diceSubject.value,
+      nbDice: this.nbDice,
+    };
   }
 }

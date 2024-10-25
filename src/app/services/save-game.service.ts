@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { GameSetting } from './gameSetting.service';
 import { GameService } from './game.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { RoundService } from './round.service';
+import { BetService } from './bet.service';
+import { PlayersService } from './players.service';
+import { DiceService } from './dice.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +13,34 @@ export class SaveGame {
   constructor(
     private settings: GameSetting,
     private game: GameService,
-    private round: RoundService
+    private players: PlayersService,
+    private bet: BetService,
+    private dice: DiceService
   ) {}
+
   savesettings(): void {
     sessionStorage.setItem(
       'settings',
       JSON.stringify(this.settings.getAllSettings())
     );
   }
+
   saveGame(): void {
     sessionStorage.setItem(
       'gameData',
       JSON.stringify(this.game.getDataToSave())
     );
     sessionStorage.setItem(
-      'roundData',
-      JSON.stringify(this.round.getDataToSave())
+      'playersData',
+      JSON.stringify(this.players.getDataTosave())
+    );
+    sessionStorage.setItem('betData', JSON.stringify(this.bet.getDataToSave()));
+    sessionStorage.setItem(
+      'diceData',
+      JSON.stringify(this.dice.getDataToSave())
     );
   }
+
   retrieveSessionData(): boolean {
     const isSessionOn = sessionStorage.getItem('gameData');
     if (!isSessionOn) {
@@ -37,8 +49,10 @@ export class SaveGame {
     console.log('gameRetrieved');
     const settings = JSON.parse(sessionStorage.getItem('settings')!);
     const game = JSON.parse(isSessionOn);
-    const round = JSON.parse(sessionStorage.getItem('roundData')!);
-    console.log(round);
+    const players = JSON.parse(sessionStorage.getItem('playersData')!);
+    const bet = JSON.parse(sessionStorage.getItem('betData')!);
+    const dice = JSON.parse(sessionStorage.getItem('diceData')!);
+
     this.settings.hydrateSettings(
       settings.gameMode,
       settings.showNbDice,
@@ -46,14 +60,16 @@ export class SaveGame {
       settings.players,
       settings.nbBots
     );
-    this.game.hydrateGame(
-      game.players,
-      game.lastBets,
-      game.dices,
-      game.nbDice,
-      game.endRound
+
+    this.game.hydrateGame(game.endRound);
+
+    this.players.hydratePlayers(
+      players.playersData,
+      players.lastBets,
+      players.activePlayer
     );
-    this.round.hydrateRound(round.activePlayerSubject, round.currentBetSubject);
+    this.bet.hydrateBet(bet);
+    this.dice.hydrateDice(dice.dices, dice.nbDice);
     return true;
   }
 }

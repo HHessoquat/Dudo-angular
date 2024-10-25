@@ -10,6 +10,13 @@ import {
 import { GameService } from '../../services/game.service';
 import { BetService } from '../../services/bet.service';
 import { RoundService } from '../../services/round.service';
+import { SaveGame } from '../../services/save-game.service';
+import { betChange } from './validators/betChange.validator';
+import { noAceOnFirstBet } from './validators/noAceOnFirstBet.validator';
+import { validInputValue } from './validators/validInputValue.validator';
+import { validNewBet } from './validators/validNewBet.validator';
+import { whenAceInCurrentBet } from './validators/whenAceInCurrentBet.validator';
+import { PlayersService } from '../../services/players.service';
 
 @Component({
   selector: 'app-bet-form',
@@ -27,7 +34,8 @@ export class BetFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private game: GameService,
     private betManager: BetService,
-    private round: RoundService
+    private players: PlayersService,
+    private gameSaver: SaveGame
   ) {}
 
   ngOnInit(): void {
@@ -35,14 +43,49 @@ export class BetFormComponent implements OnInit {
     this.initForm();
   }
   initControls(): void {
-    this.diceAmount = this.formBuilder.control(1, Validators.required);
-    this.faceValue = this.formBuilder.control(2, Validators.required);
+    const firstDiceAmount: number =
+      this.betManager.getDiceAmount() === 0
+        ? 1
+        : this.betManager.getDiceAmount();
+    const firstFaceValue: number =
+      this.betManager.getFaceValue() === 0 ? 2 : this.betManager.getFaceValue();
+    this.diceAmount = this.formBuilder.control(
+      firstDiceAmount,
+      Validators.required
+    );
+    this.faceValue = this.formBuilder.control(
+      firstFaceValue,
+      Validators.required
+    );
   }
   initForm(): void {
-    this.betForm = this.formBuilder.group({
-      diceAmount: this.diceAmount,
-      faceValue: this.faceValue,
-    });
+    this.betForm = this.formBuilder.group(
+      {
+        diceAmount: this.diceAmount,
+        faceValue: this.faceValue,
+      },
+      {
+        validators: [
+          betChange(
+            'diceAmount',
+            'faceValue',
+            this.betManager.currentBetSubject
+          ),
+          noAceOnFirstBet('faceValue', this.betManager.currentBetSubject),
+          validInputValue('diceAmount', 'faceValue'),
+          validNewBet(
+            'diceAmount',
+            'faceValue',
+            this.betManager.currentBetSubject
+          ),
+          whenAceInCurrentBet(
+            'diceAmount',
+            'faceValue',
+            this.betManager.getBet()
+          ),
+        ],
+      }
+    );
   }
   onIncrementDice(): void {
     this.diceAmount.setValue(
@@ -55,15 +98,14 @@ export class BetFormComponent implements OnInit {
       this.faceValue.value
     );
     this.diceAmount.setValue(newValue);
-    newValue < this.round.currentBetSubject.value.diceAmount &&
-      this.faceValue.setValue(1);
+    newValue < this.betManager.getDiceAmount() && this.faceValue.setValue(1);
   }
   onIncrementFace(): void {
     const currentFace = this.faceValue.value;
-    this.faceValue.setValue(this.betManager.increaseFaceValue(currentFace));
-    currentFace === 1 &&
-      this.diceAmount.value <= this.round.currentBetSubject.value.diceAmount &&
-      this.diceAmount.setValue(this.round.currentBetSubject.value.diceAmount);
+    const diceAmount = this.diceAmount.value;
+    const newValue = this.betManager.increaseFaceValue(currentFace, diceAmount);
+    this.faceValue.setValue(newValue.faceValue);
+    this.diceAmount.setValue(newValue.diceAmount);
   }
   onDecrementFace(): void {
     this.faceValue.setValue(
@@ -72,9 +114,12 @@ export class BetFormComponent implements OnInit {
   }
   onbet(): void {
     this.game.setCurrentBet(this.diceAmount.value, this.faceValue.value);
-    this.round.nextPlayer();
+    this.players.nextPlayer();
+    this.gameSaver.saveGame();
+    this.betForm.updateValueAndValidity();
   }
-  onDudo(): void {
-    this.game.resolveRound('dudo');
+  onEndRound(trigger: 'dudo' | 'exact'): void {
+    this.game.resolveRound(trigger);
+    this.gameSaver.saveGame();
   }
 }

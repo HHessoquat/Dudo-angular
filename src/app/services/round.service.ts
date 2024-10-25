@@ -1,84 +1,82 @@
 import { Injectable } from '@angular/core';
 import { DiceService } from './dice.service';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Bet } from '../models/bet.model';
-import { Dice } from '../models/dice.model';
-import { GameSetting } from './gameSetting.service';
+import { RoundResult } from '../models/round-result.model';
+import { DiceSet } from '../models/diceSet.model';
+import { BetService } from './bet.service';
+import { PlayersService } from './players.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoundService {
-  nbPlayer!: number;
-  activePlayerSubject!: BehaviorSubject<number>;
-  activePlayer$!: Observable<number>;
-  currentBetSubject!: BehaviorSubject<Bet>;
-  currentBet$!: Observable<Bet>;
-  loser!: number;
+  roundResult!: RoundResult;
 
-  constructor(private settings: GameSetting, private diceManager: DiceService) {
-    this.nbPlayer = this.settings.nbPlayer;
-    this.activePlayerSubject = new BehaviorSubject<number>(0);
-    this.activePlayer$ = this.activePlayerSubject.asObservable();
-    this.currentBetSubject = new BehaviorSubject({
-      diceAmount: 0,
-      faceValue: 0,
-    });
-    this.currentBet$ = this.currentBetSubject.asObservable();
-  }
+  constructor(
+    private diceManager: DiceService,
+    private bet: BetService,
+    private players: PlayersService
+  ) {}
   initRound() {
-    this.activePlayerSubject.next(this.loser);
-    this.currentBetSubject.next({ diceAmount: 0, faceValue: 0 });
+    this.bet.reset();
   }
 
-  resolveRound(trigger: 'dudo' | 'exact', dices: Dice[][]) {
-    const diceResult = this.diceManager.reduceDiceValue(dices);
-    console.log(diceResult);
-    const valueToCheck = this.diceManager.getValueToCheck(diceResult);
-    console.log(valueToCheck);
-    let betResult;
+  resolveRound(trigger: 'dudo' | 'exact', dices: DiceSet[]): void {
+    const activePlayerIndex: number = this.players.getCurrentPlayerIndex();
+    const opponentIndex: number =
+      activePlayerIndex === 0
+        ? this.players.nbActivePlayers - 1
+        : activePlayerIndex - 1;
+    const allDice = dices.map((diceSet) => diceSet.dice);
+    const valueToCheck = this.diceManager.getValueToCheck(allDice);
+
+    this.setResult(trigger, valueToCheck, activePlayerIndex, opponentIndex);
+    this.players.endRoundConsequence(this.roundResult);
+  }
+
+  setFirstPlayer(): void {
+    // add case player has no dice
+    let firstPlayer = 0;
+
+    if (this.roundResult) {
+      firstPlayer =
+        this.roundResult.roundLoser !== -1
+          ? this.roundResult.roundLoser
+          : this.roundResult.roundWinner;
+    }
+    if (!this.diceManager.getDiceForPlayer(firstPlayer)) {
+      firstPlayer =
+        (this.players.getCurrentPlayerIndex() + 1) %
+        this.players.nbActivePlayers;
+    }
+    this.players.setActivePlayerIndex(firstPlayer);
+  }
+  setResult(
+    trigger: string,
+    valueToCheck: any,
+    activePlayerIndex: number,
+    opponentIndex: number
+  ): void {
+    let loser: number;
+    let winner: number;
+    let hasActivePlayerWon: boolean;
     if (trigger === 'dudo') {
-      betResult =
-        valueToCheck[`${this.currentBetSubject.value.faceValue}`] >=
-        this.currentBetSubject.value.diceAmount; // if true, the player who called dudo loses
-      this.loser = betResult
-        ? this.activePlayerSubject.value
-        : this.activePlayerSubject.value - 1;
-    } else if ((trigger = 'exact')) {
-      betResult =
-        valueToCheck[`${this.currentBetSubject.value.faceValue}`] ===
-        this.currentBetSubject.value.diceAmount; // if true, the player who called exact wins
-      this.loser = this.activePlayerSubject.value;
+      hasActivePlayerWon =
+        valueToCheck[`${this.bet.getFaceValue()}`] < this.bet.getDiceAmount(); // if true, the player who called dudo wins
+      loser = hasActivePlayerWon ? opponentIndex : activePlayerIndex;
+      winner = -1;
+    } else {
+      hasActivePlayerWon =
+        valueToCheck[`${this.bet.getFaceValue()}`] === this.bet.getDiceAmount(); // if true, the player who called exact wins
+
+      loser = hasActivePlayerWon ? -1 : activePlayerIndex;
+      winner = hasActivePlayerWon ? activePlayerIndex : -1;
     }
 
-    console.log('face', this.currentBetSubject.value.faceValue);
-    console.log('amount', this.currentBetSubject.value.diceAmount);
-    console.log(betResult);
-    return betResult;
-  }
-
-  setCurrentBet(diceAmount: number, faceValue: number): void {
-    const bet = { diceAmount, faceValue };
-    this.currentBetSubject.next(bet);
-  }
-
-  nextPlayer(): void {
-    const currentIndex = this.activePlayerSubject.value;
-    const nextIndex = (currentIndex + 1) % this.nbPlayer;
-    this.activePlayerSubject.next(nextIndex);
-  }
-
-  hydrateRound(activePlayerSubject: number, currentBet: Bet) {
-    this.nbPlayer = this.settings.nbPlayer;
-    this.activePlayerSubject = new BehaviorSubject<number>(activePlayerSubject);
-    this.activePlayer$ = this.activePlayerSubject.asObservable();
-    this.currentBetSubject = new BehaviorSubject<Bet>(currentBet);
-    this.currentBet$ = this.currentBetSubject.asObservable();
-  }
-  getDataToSave(): object {
-    return {
-      activePlayerSubject: this.activePlayerSubject.value,
-      currentBetSubject: this.currentBetSubject.value,
+    this.roundResult = {
+      diceAmount: valueToCheck[this.bet.getFaceValue()],
+      faceValue: this.bet.getFaceValue(),
+      roundLoser: loser,
+      roundWinner: winner,
     };
   }
 }
