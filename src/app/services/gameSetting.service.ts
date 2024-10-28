@@ -14,6 +14,7 @@ export class GameSetting {
   exactRule!: boolean;
   showLastBet!: boolean;
   nbFacePerDice: number = 6;
+  nbDicePerPlayer: number = 2;
 
   hydrateSettings(
     gameMode: 'solo' | 'multi' | 'multiBot',

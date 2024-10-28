@@ -27,8 +27,9 @@ export class EndRoundMsgComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.winnerName =
-      this.round.roundResult.roundWinner !== -1
-        ? this.players.getActivePlayers()[this.round.roundResult.roundWinner]
+      this.round.roundResult.roundWinnerId !== -1
+        ? this.players.getAllPlayers()
+            .find(player => player.id === this.round.roundResult.roundWinnerId)!
             .name
         : undefined;
 
@@ -38,8 +39,8 @@ export class EndRoundMsgComponent implements OnInit {
       : undefined;
 
     this.loserName =
-      this.round.roundResult.roundLoser !== -1
-        ? this.players.getActivePlayers()[this.round.roundResult.roundLoser]
+      this.round.roundResult.roundLoserId !== -1
+        ? this.players.getAllPlayers().find(player => player.id === this.round.roundResult.roundLoserId)!
             .name
         : undefined;
 

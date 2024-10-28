@@ -34,12 +34,12 @@ export class DiceService {
 
   rollDice(players: Player[]): void {
     this.diceSubject.next(
-      players.map((player) => {
+      players.map((player): DiceSet => {
         const playersDice: Dice[] = [];
 
         for (let i = 0; i < player.nbDiceLeft; i++) {
           playersDice.push({
-            value: Math.ceil(Math.random() * 6),
+            value: Math.ceil(Math.random() * this.settings.nbFacePerDice),
             color: color[player.id],
           });
         }

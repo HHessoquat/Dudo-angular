@@ -1,23 +1,28 @@
 <div id="playground">
-  <ng-container *ngFor="let player of players.activePlayers$ | async">
+  <ng-container *ngFor="let player of players.activePlayers$ | async; index as i">
     <app-player
       class="{{ player.position }}"
       [playerId]="player.id"
+      [isCurrentPlayer] = " i === (players.currentPlayerIndex$ | async)"
     ></app-player>
   </ng-container>
+
   <ng-container *ngFor="let player of players.allPlayers">
-    <app-player-lost *ngIf="player.isPlaying === false"></app-player-lost>
+    <app-player-lost *ngIf="!player.isPlaying"></app-player-lost>
   </ng-container>
+
   <div *ngIf="!gameManager.endRound" class="centerArea">
     <app-bet-form></app-bet-form>
   </div>
   <div
-    *ngIf="gameManager.endRound && !(gameManager.endGame$ | async)"
+    *ngIf="gameManager.endRound"
     class="centerArea"
   >
     <div *ngIf="gameManager.endGame$ | async">
       <app-end-game-message></app-end-game-message>
     </div>
-    <app-end-round-msg></app-end-round-msg>
+    <div *ngIf="!(gameManager.endGame$ | async)">
+      <app-end-round-msg></app-end-round-msg>
+    </div>
   </div>
 </div>

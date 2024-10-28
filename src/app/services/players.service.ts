@@ -29,7 +29,13 @@ export class PlayersService {
     const POSITION: Array<PlayerPosition> = getPosition(this.settings.nbPlayer);
 
     this.allPlayers = this.settings.players.map((player, index) => {
-      return new Player(index, player.name, player.password, POSITION[index]);
+      return new Player(
+        index,
+        player.name,
+        player.password,
+        POSITION[index],
+        this.settings.nbDicePerPlayer
+      );
     });
   }
 
@@ -37,8 +43,8 @@ export class PlayersService {
     return this.allPlayers;
   }
 
-  setActivePlayers(players: Player[]): void {
-    this.activePlayersSubject.next(players);
+  setActivePlayers(): void {
+    this.activePlayersSubject.next(this.allPlayers.filter((player) => player.isPlaying));
   }
 
   getActivePlayers(): Player[] {
@@ -52,25 +58,28 @@ export class PlayersService {
     this.currentPlayerSubject.next(index);
   }
 
+  setNbActivePlayers():void {
+    this.nbActivePlayers = this.getActivePlayers().length
+  }
+
   nextPlayer(): void {
     const nextIndex = (this.getCurrentPlayerIndex() + 1) % this.nbActivePlayers;
-
     this.setActivePlayerIndex(nextIndex);
   }
 
   initRound(): void {
     this.allPlayers.forEach((player) => player.resetBet());
-    this.setActivePlayers(this.allPlayers.filter((player) => player.isPlaying));
-    this.nbActivePlayers = this.getActivePlayers().length;
+    this.setNbActivePlayers();
   }
 
   endRoundConsequence(roundResult: RoundResult): void {
-    if (roundResult.roundLoser !== -1) {
-      this.getActivePlayers()[roundResult.roundLoser].loseDice();
+    if (roundResult.roundLoserId !== -1) {
+      this.getActivePlayers().find(player => player.id === roundResult.roundLoserId)!.loseDice();
     }
-    if (roundResult.roundWinner !== -1) {
-      this.getActivePlayers()[roundResult.roundWinner].winDice();
+    if (roundResult.roundWinnerId !== -1) {
+      this.getActivePlayers().find(player => player.id === roundResult.roundWinnerId)!.winDice();
     }
+    this.setActivePlayers();
   }
 
   hydratePlayers(players: Player[], lastBets: any, activePlayerIndex: number) {
@@ -89,12 +98,12 @@ export class PlayersService {
         player.isPlaying
       );
     });
-    this.setActivePlayers(this.allPlayers.filter((player) => player.isPlaying));
-    this.nbActivePlayers = this.getActivePlayers().length;
+    this.setActivePlayers();
+    this.setNbActivePlayers();
     this.currentPlayerSubject.next(activePlayerIndex);
   }
 
-  getDataTosave() {
+  getDataToSave() {
     const lastBets = this.allPlayers.map((player) => {
       return { id: player.id, bet: player.lastBetSubject.value };
     });
@@ -116,4 +125,5 @@ export class PlayersService {
       activePlayer: this.currentPlayerSubject.value,
     };
   }
+
 }

@@ -15,7 +15,8 @@ export class SaveGame {
     private game: GameService,
     private players: PlayersService,
     private bet: BetService,
-    private dice: DiceService
+    private dice: DiceService,
+    private round: RoundService
   ) {}
 
   savesettings(): void {
@@ -32,13 +33,12 @@ export class SaveGame {
     );
     sessionStorage.setItem(
       'playersData',
-      JSON.stringify(this.players.getDataTosave())
+      JSON.stringify(this.players.getDataToSave())
     );
     sessionStorage.setItem('betData', JSON.stringify(this.bet.getDataToSave()));
-    sessionStorage.setItem(
-      'diceData',
-      JSON.stringify(this.dice.getDataToSave())
+    sessionStorage.setItem('diceData', JSON.stringify(this.dice.getDataToSave())
     );
+    sessionStorage.setItem('roundData', JSON.stringify(this.round.getDataToSave()));
   }
 
   retrieveSessionData(): boolean {
@@ -52,6 +52,7 @@ export class SaveGame {
     const players = JSON.parse(sessionStorage.getItem('playersData')!);
     const bet = JSON.parse(sessionStorage.getItem('betData')!);
     const dice = JSON.parse(sessionStorage.getItem('diceData')!);
+    const round = JSON.parse(sessionStorage.getItem("roundData")!);
 
     this.settings.hydrateSettings(
       settings.gameMode,
@@ -60,9 +61,7 @@ export class SaveGame {
       settings.players,
       settings.nbBots
     );
-
-    this.game.hydrateGame(game.endRound);
-
+    this.round.hydrateRound(round.roundResult);
     this.players.hydratePlayers(
       players.playersData,
       players.lastBets,
@@ -70,6 +69,8 @@ export class SaveGame {
     );
     this.bet.hydrateBet(bet);
     this.dice.hydrateDice(dice.dices, dice.nbDice);
+    this.game.hydrateGame(game.endRound);
     return true;
   }
+
 }

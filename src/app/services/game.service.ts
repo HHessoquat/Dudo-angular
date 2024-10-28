@@ -22,11 +22,8 @@ export class GameService {
   initGame(): void {
     this.endRound = false;
     this.players.setPlayers();
-    this.players.setActivePlayers(this.players.getAllPlayers());
-    this.endGameSubject = new BehaviorSubject(
-      this.players.getActivePlayers().length <= 1
-    );
-    this.endGame$ = this.endGameSubject.asObservable();
+    this.players.setActivePlayers();
+    this.initEndGameObservable();
   }
   initRound(): void {
     this.players.initRound();
@@ -37,18 +34,27 @@ export class GameService {
   resolveRound(trigger: 'dudo' | 'exact') {
     this.roundManager.resolveRound(trigger, this.diceManager.getAllDice());
     this.endRound = true;
-    console.log('end game', this.endGameSubject.value);
+
   }
   nextRound(): void {
     this.roundManager.initRound();
     this.endGameSubject.next(this.players.getActivePlayers().length <= 1);
+    console.log('end game', this.endGameSubject.value);
+
     if (this.endGameSubject.value) {
       return;
     }
-    this.initRound();
+
     this.endRound = false;
+    this.initRound();
   }
 
+  initEndGameObservable(): void {
+    this.endGameSubject = new BehaviorSubject(
+      this.players.getActivePlayers().length <= 1
+    );
+    this.endGame$ = this.endGameSubject.asObservable();
+  }
   setCurrentBet(diceAmount: number, faceValue: number): void {
     this.currentBet.setNewBet(diceAmount, faceValue);
     this.players
@@ -61,6 +67,7 @@ export class GameService {
 
   hydrateGame(endRound: boolean): void {
     this.endRound = endRound;
+    this.initEndGameObservable();
   }
   getDataToSave(): object {
     return {

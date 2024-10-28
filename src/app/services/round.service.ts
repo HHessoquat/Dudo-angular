@@ -4,6 +4,7 @@ import { RoundResult } from '../models/round-result.model';
 import { DiceSet } from '../models/diceSet.model';
 import { BetService } from './bet.service';
 import { PlayersService } from './players.service';
+import {Player} from "../entities/player.entity";
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,7 @@ export class RoundService {
     const activePlayerIndex: number = this.players.getCurrentPlayerIndex();
     const opponentIndex: number =
       activePlayerIndex === 0
-        ? this.players.nbActivePlayers - 1
+        ? this.players.getActivePlayers().length - 1
         : activePlayerIndex - 1;
     const allDice = dices.map((diceSet) => diceSet.dice);
     const valueToCheck = this.diceManager.getValueToCheck(allDice);
@@ -34,20 +35,25 @@ export class RoundService {
   }
 
   setFirstPlayer(): void {
-    // add case player has no dice
+    if (!this.roundResult) {
+      this.players.setActivePlayerIndex(0);
+      return;
+    }
+
     let firstPlayer = 0;
 
-    if (this.roundResult) {
-      firstPlayer =
-        this.roundResult.roundLoser !== -1
-          ? this.roundResult.roundLoser
-          : this.roundResult.roundWinner;
+    const lastWinnerOrLoserId = this.roundResult.roundLoserId !== -1
+      ? this.roundResult.roundLoserId
+      : this.roundResult.roundWinnerId
+    firstPlayer = this.players.getActivePlayers()
+      .findIndex((player: Player) => player.id === lastWinnerOrLoserId);
+
+    if (firstPlayer === -1) {
+      firstPlayer = this.players.getCurrentPlayerIndex() - 1 >= 0
+        ? this.players.getCurrentPlayerIndex() - 1
+        : 0;
     }
-    if (!this.diceManager.getDiceForPlayer(firstPlayer)) {
-      firstPlayer =
-        (this.players.getCurrentPlayerIndex() + 1) %
-        this.players.nbActivePlayers;
-    }
+
     this.players.setActivePlayerIndex(firstPlayer);
   }
   setResult(
@@ -62,21 +68,33 @@ export class RoundService {
     if (trigger === 'dudo') {
       hasActivePlayerWon =
         valueToCheck[`${this.bet.getFaceValue()}`] < this.bet.getDiceAmount(); // if true, the player who called dudo wins
-      loser = hasActivePlayerWon ? opponentIndex : activePlayerIndex;
+      loser = hasActivePlayerWon
+        ? this.players.getActivePlayers()[opponentIndex].id
+        : this.players.getActivePlayers()[activePlayerIndex].id;
       winner = -1;
     } else {
       hasActivePlayerWon =
         valueToCheck[`${this.bet.getFaceValue()}`] === this.bet.getDiceAmount(); // if true, the player who called exact wins
 
-      loser = hasActivePlayerWon ? -1 : activePlayerIndex;
-      winner = hasActivePlayerWon ? activePlayerIndex : -1;
+      loser = hasActivePlayerWon ? -1 : this.players.getActivePlayers()[activePlayerIndex].id;
+      winner = hasActivePlayerWon ? this.players.getActivePlayers()[activePlayerIndex].id : -1;
     }
 
     this.roundResult = {
       diceAmount: valueToCheck[this.bet.getFaceValue()],
       faceValue: this.bet.getFaceValue(),
-      roundLoser: loser,
-      roundWinner: winner,
+      roundLoserId: loser,
+      roundWinnerId: winner,
     };
+  }
+
+  getDataToSave() {
+    return {
+      roundResult: this.roundResult,
+    };
+  }
+
+  hydrateRound(roundResult: RoundResult ):void {
+    this.roundResult = roundResult;
   }
 }

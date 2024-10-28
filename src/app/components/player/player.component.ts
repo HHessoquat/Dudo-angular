@@ -20,7 +20,7 @@ export class PlayerComponent implements OnInit {
   @Input() playerId!: number;
   player!: Player;
   dice?: Dice[];
-  isCurrentPlayer!: boolean;
+  @Input() isCurrentPlayer!: boolean;
   subscription: Subscription[] = [];
 
   constructor(
@@ -29,9 +29,15 @@ export class PlayerComponent implements OnInit {
     public diceManager: DiceService
   ) {}
   ngOnInit(): void {
-    const activePlayers: Player[] = this.players.getActivePlayers()
-    this.player = activePlayers
-      .find((player) => player.id === this.playerId)!;
+
+
+    this.subscription.push(
+      this.players.activePlayers$.subscribe(players => {
+        this.player = players.find(player => player.id === this.playerId)!;
+        }
+      )
+    );
+
     this.subscription.push(
       this.diceManager.dices$.subscribe((dice) => {
         this.dice = dice.find(
@@ -39,11 +45,7 @@ export class PlayerComponent implements OnInit {
         )?.dice;
       })
     );
-    this.subscription.push(
-      this.players.currentPlayerIndex$.subscribe(currentPlayerIndex => {
-        this.isCurrentPlayer = this.player === activePlayers[currentPlayerIndex];
-      })
-    );
+
   }
   ngOndestroy(): void {
     this.subscription.forEach(subscription => {
