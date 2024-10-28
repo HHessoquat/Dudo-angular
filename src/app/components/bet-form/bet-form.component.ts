@@ -33,7 +33,7 @@ export class BetFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private game: GameService,
-    private betManager: BetService,
+    protected betManager: BetService,
     private players: PlayersService,
     private gameSaver: SaveGame
   ) {}

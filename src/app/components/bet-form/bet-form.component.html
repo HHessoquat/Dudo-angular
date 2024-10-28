@@ -38,7 +38,7 @@
     <button type="button" (click)="onbet()" [disabled]="betForm.invalid">
       Parier
     </button>
-    <button type="button" (click)="onEndRound('exact')">Exact</button>
-    <button type="button" (click)="onEndRound('dudo')">Dudo</button>
+    <button type="button" (click)="onEndRound('exact')" [disabled]="(betManager.currentBet$ | async)?.diceAmount === 0">Exact</button>
+    <button type="button" (click)="onEndRound('dudo')" [disabled]="(betManager.currentBet$ | async)?.diceAmount === 0">Dudo</button>
   </div>
 </form>
