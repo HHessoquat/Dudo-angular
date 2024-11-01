@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GameService } from './game.service';
 import { GameSetting } from './gameSetting.service';
-import { RoundService } from './round.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Bet } from '../models/bet.model';
 

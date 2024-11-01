@@ -58,6 +58,27 @@ export class PlayersService {
     this.currentPlayerSubject.next(index);
   }
 
+  getActivePlayer(): Player {
+    return this.getActivePlayers()[this.getCurrentPlayerIndex()];
+  }
+
+  toggleCurrentPlayerDiceVisibility() {
+    this.getActivePlayer().toggleDiceVisibility();
+  }
+  //TODO use that
+  showAllDices(): void {
+    this.getActivePlayers().forEach((player) => {
+      player.areDiceVisible = true;
+    })
+  }
+
+  //TODO use this
+  hideAllDices(): void {
+    this.getActivePlayers().forEach((player) => {
+      player.areDiceVisible = false;
+    })
+  }
+
   setNbActivePlayers():void {
     this.nbActivePlayers = this.getActivePlayers().length
   }

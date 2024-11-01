@@ -9,7 +9,6 @@ import {
 } from '@angular/forms';
 import { GameService } from '../../services/game.service';
 import { BetService } from '../../services/bet.service';
-import { RoundService } from '../../services/round.service';
 import { SaveGame } from '../../services/save-game.service';
 import { betChange } from './validators/betChange.validator';
 import { noAceOnFirstBet } from './validators/noAceOnFirstBet.validator';
@@ -17,11 +16,14 @@ import { validInputValue } from './validators/validInputValue.validator';
 import { validNewBet } from './validators/validNewBet.validator';
 import { whenAceInCurrentBet } from './validators/whenAceInCurrentBet.validator';
 import { PlayersService } from '../../services/players.service';
+import {AuthModalComponent} from "../auth-modal/auth-modal.component";
+import {AuthService} from "../../services/auth.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-bet-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, AuthModalComponent],
   templateUrl: './bet-form.component.html',
   styleUrl: './bet-form.component.scss',
 })
@@ -29,26 +31,32 @@ export class BetFormComponent implements OnInit {
   betForm!: FormGroup;
   diceAmount!: FormControl;
   faceValue!: FormControl;
+  showAuthModal!: Observable<boolean>;
 
   constructor(
     private formBuilder: FormBuilder,
     private game: GameService,
     protected betManager: BetService,
     private players: PlayersService,
+    private authManager: AuthService,
     private gameSaver: SaveGame
   ) {}
 
   ngOnInit(): void {
     this.initControls();
     this.initForm();
+    this.showAuthModal = this.authManager.showModal$
   }
+
   initControls(): void {
     const firstDiceAmount: number =
       this.betManager.getDiceAmount() === 0
         ? 1
         : this.betManager.getDiceAmount();
+
     const firstFaceValue: number =
       this.betManager.getFaceValue() === 0 ? 2 : this.betManager.getFaceValue();
+
     this.diceAmount = this.formBuilder.control(
       firstDiceAmount,
       Validators.required
@@ -121,5 +129,17 @@ export class BetFormComponent implements OnInit {
   onEndRound(trigger: 'dudo' | 'exact'): void {
     this.game.resolveRound(trigger);
     this.gameSaver.saveGame();
+  }
+
+  onShowDice() {
+    if (this.areDiceVisible()) {
+      this.players.getActivePlayer().areDiceVisible = false;
+      return
+    }
+    this.authManager.showModal();
+  }
+
+  areDiceVisible(): boolean {
+    return this.players.getActivePlayer().areDiceVisible;
   }
 }

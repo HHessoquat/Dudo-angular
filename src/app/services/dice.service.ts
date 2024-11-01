@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Dice } from '../models/dice.model';
 import { GameSetting } from './gameSetting.service';
 import { Player } from '../entities/player.entity';
-import { color } from '../features/dice';
 import { DiceSet } from '../models/diceSet.model';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -13,9 +12,10 @@ export class DiceService {
   diceSubject!: BehaviorSubject<DiceSet[]>;
   dices$!: Observable<DiceSet[]>;
   nbDice!: number;
+
   constructor(private settings: GameSetting) {
     this.diceSubject = new BehaviorSubject([
-      { playerId: 0, dice: [{ value: 1, color: color[0] }] },
+      { playerId: 0, dice: [{ value: 1 }] },
     ]);
     this.dices$ = this.diceSubject.asObservable();
   }
@@ -40,7 +40,6 @@ export class DiceService {
         for (let i = 0; i < player.nbDiceLeft; i++) {
           playersDice.push({
             value: Math.ceil(Math.random() * this.settings.nbFacePerDice),
-            color: color[player.id],
           });
         }
         return { playerId: player.id, dice: playersDice };

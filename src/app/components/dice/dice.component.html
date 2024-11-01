@@ -1,5 +1,5 @@
 <img
-  [src]="imgPath"
+  [src]="isVisible ? imgPath : HIDDEN_PATH"
   [alt]="value"
   style="background-color: {{ color }}"
   class="dice"

@@ -1,16 +1,20 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Bet } from '../models/bet.model';
 import { PlayerPosition } from '../features/players/position-types.type';
+import { color } from '../features/dice';
 
 export class Player {
   id!: number;
   name!: string;
   password!: string;
+  diceColor!: string;
   nbDiceLeft!: number;
+  areDiceVisible!: boolean;
   isPlaying!: boolean;
   lastBetSubject!: BehaviorSubject<Bet>;
   lastBet$!: Observable<Bet>;
   position!: string;
+
 
   constructor(
     id: number,
@@ -26,6 +30,8 @@ export class Player {
     this.name = name;
     this.password = password;
     this.nbDiceLeft = nbDiceLeft;
+    this.diceColor= color[id];
+    this.areDiceVisible = false;
     this.isPlaying = isPlaying;
     this.lastBetSubject = new BehaviorSubject<Bet>({
       diceAmount,
@@ -34,6 +40,11 @@ export class Player {
     this.lastBet$ = this.lastBetSubject.asObservable();
     this.position = position;
   }
+
+  toggleDiceVisibility(): void {
+    this.areDiceVisible = !this.areDiceVisible;
+  }
+
   loseDice(): void {
     this.nbDiceLeft--;
     this.nbDiceLeft <= 0 && (this.isPlaying = false);

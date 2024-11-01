@@ -7,8 +7,9 @@
     <app-dice
       class="singleDice"
       *ngFor="let singleDice of dice"
-      [color]="singleDice.color"
+      [color]="player.diceColor"
       [value]="singleDice.value"
+      [isVisible]="player.areDiceVisible"
     ></app-dice>
   </div>
   <div class="playerInfo">

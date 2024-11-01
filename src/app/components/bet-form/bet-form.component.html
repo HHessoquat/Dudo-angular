@@ -1,4 +1,12 @@
 <form [formGroup]="betForm">
+  <button
+    class="showDiceButton"
+    type="button"
+    (click)="onShowDice()"
+  >
+    {{areDiceVisible() ? "cacher" : "montrer"}} les dés
+  </button>
+
   <div class="formContainer">
     <div class="inputContainer">
       <label for="diceAmount">Nombre</label
@@ -42,3 +50,6 @@
     <button type="button" (click)="onEndRound('dudo')" [disabled]="(betManager.currentBet$ | async)?.diceAmount === 0">Dudo</button>
   </div>
 </form>
+@if (showAuthModal | async) {
+  <app-auth-modal id="authModal"/>
+}

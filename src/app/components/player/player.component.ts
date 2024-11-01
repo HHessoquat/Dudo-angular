@@ -18,9 +18,9 @@ import { DiceSet } from '../../models/diceSet.model';
 })
 export class PlayerComponent implements OnInit {
   @Input() playerId!: number;
+  @Input() isCurrentPlayer!: boolean;
   player!: Player;
   dice?: Dice[];
-  @Input() isCurrentPlayer!: boolean;
   subscription: Subscription[] = [];
 
   constructor(
@@ -29,8 +29,6 @@ export class PlayerComponent implements OnInit {
     public diceManager: DiceService
   ) {}
   ngOnInit(): void {
-
-
     this.subscription.push(
       this.players.activePlayers$.subscribe(players => {
         this.player = players.find(player => player.id === this.playerId)!;
