@@ -95,13 +95,13 @@ export class DiceService {
   }
   getValueToCheck(allDice: Dice[][]) {
     const diceResult = this.reduceDiceValue(allDice);
-    const ajustedValues: any = {};
+    const adjustedValues: any = {}; //add number of "1" to all other value.
     for (const diceFace in diceResult) {
       diceFace === '1'
-        ? (ajustedValues[diceFace] = diceResult[diceFace])
-        : (ajustedValues[diceFace] = diceResult[diceFace] + diceResult['1']);
+        ? (adjustedValues[diceFace] = diceResult[diceFace])
+        : (adjustedValues[diceFace] = diceResult[diceFace] + diceResult['1']);
     }
-    return ajustedValues;
+    return adjustedValues;
   }
 
   setNbDice(players: Player[]): void {
@@ -109,7 +109,6 @@ export class DiceService {
       return acc + player.nbDiceLeft;
     }, 0);
   }
-
 
   hydrateDice(dices: DiceSet[], nbDice: number): void {
     this.diceSubject = new BehaviorSubject(dices);

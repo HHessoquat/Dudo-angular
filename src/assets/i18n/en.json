@@ -1,0 +1,11 @@
+{
+  "LANDING_GAME_MODE_01":"Solo",
+  "LANDING_GAME_MODE_02":"Multi-player",
+  "LANDING_GAME_MODE_03":"Multi + Bots",
+
+  "SETTING_PLAYER_NB_Player": "Nunber of Player",
+  "SETTING_PLAYER_NAME": "Player's Name",
+  "SETTING_Player_Password": "Password",
+  "SETTING_BOT_NAME": "Bot's Name",
+  "SETTING_BUTTON_VALIDATE": "Confirm"
+}

@@ -1,5 +1,5 @@
 <div class="gameModeContainer">
-  <button (click)="onNavigateToGameSettings('solo')">Solo</button>
-  <button (click)="onNavigateToGameSettings('multi')">Multi-joueur</button>
-  <button (click)="onNavigateToGameSettings('multiBot')">multi + Bot</button>
+  <button (click)="onNavigateToGameSettings('solo')">{{ "LANDING_GAME_MODE_01" | translate }}</button>
+  <button (click)="onNavigateToGameSettings('multi')" >{{'LANDING_GAME_MODE_02' | translate}}</button>
+  <button (click)="onNavigateToGameSettings('multiBot')">{{ "LANDING_GAME_MODE_03" | translate }}</button>
 </div>

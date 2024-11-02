@@ -1,4 +1,4 @@
-export class Bet {
-  diceAmount!: number;
-  faceValue!: number;
+export interface Bet {
+  diceAmount: number;
+  faceValue: number;
 }

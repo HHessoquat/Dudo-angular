@@ -1,4 +1,4 @@
-export class UserInput {
-  name!: string;
-  password!: string;
+export interface UserInput {
+  name: string;
+  password: string;
 }

@@ -11,11 +11,12 @@ import {
 import { GameSetting } from '../../../services/gameSetting.service';
 import { Observable, startWith, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-multi-settings',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './multi-settings.component.html',
   styleUrl: './multi-settings.component.scss',
 })
@@ -25,13 +26,15 @@ export class MultiSettingsComponent implements OnInit {
   @Input() playersForm!: FormGroup;
   nbInput$?: Observable<string>;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private translateService: TranslateService) {}
 
   ngOnInit(): void {
     this.initControls();
     this.initForm();
     this.initFormObservables();
     this.addPlayersNameInput();
+    this.translateService.setDefaultLang("fr");
+    this.translateService.use("en");
   }
 
   private initControls(): void {
@@ -74,7 +77,7 @@ export class MultiSettingsComponent implements OnInit {
       );
     }
   }
-  getPlayerByindex(index: number): FormGroup {
+  getPlayerIndex(index: number): FormGroup {
     return this.players.at(index) as FormGroup;
   }
   getPlayersNameControlByIndex(index: number): FormControl {

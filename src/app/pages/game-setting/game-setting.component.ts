@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { MultiSettingsComponent } from '../../components/game-setting-management/multi-settings/multi-settings.component';
 import { SoloSettingsComponent } from '../../components/game-setting-management/solo-settings/solo-settings.component';
 import { UserInput } from '../../models/user-input.model';
-import { GameService } from '../../services/game.service';
 import { GameSetting } from '../../services/gameSetting.service';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-game-setting',
@@ -18,6 +18,7 @@ import { GameSetting } from '../../services/gameSetting.service';
     SettingFormComponent,
     MultiSettingsComponent,
     SoloSettingsComponent,
+    TranslateModule,
   ],
   templateUrl: './game-setting.component.html',
   styleUrl: './game-setting.component.scss',

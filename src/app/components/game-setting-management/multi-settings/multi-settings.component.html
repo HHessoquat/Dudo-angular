@@ -1,6 +1,6 @@
 <div [formGroup]="playersForm">
   <fieldset>
-    <legend>Nombre de joueur</legend>
+    <legend>{{ "SETTING_PLAYER_NB_Player" | translate }}</legend>
     <label
       *ngFor="let option of ['2', '3', '4', '5', '6']"
       [attr.for]="'nbPlayers' + option"
@@ -17,8 +17,8 @@
   </fieldset>
   <ng-container *ngIf="nbInput$ | async">
     <ng-container *ngFor="let currentControl of players.controls; index as i">
-      <form class="inputContainer" [formGroup]="getPlayerByindex(i)">
-        <label for="playerName{{ i }}">Nom du joueur</label>
+      <form class="inputContainer" [formGroup]="getPlayerIndex(i)">
+        <label for="playerName{{ i }}">{{"SETTING_PLAYER_NAME" | translate}}</label>
         <input
           type="text"
           id="playerName{{ i }}"
@@ -26,7 +26,7 @@
           [formControl]="getPlayersNameControlByIndex(i)"
         />
 
-        <label for="password{{ i }}">Mot de passe</label>
+        <label for="password{{ i }}">{{ "SETTING_Player_Password" | translate}}</label>
         <input
           type="password"
           id="password{{ i }}"

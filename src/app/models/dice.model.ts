@@ -1,3 +1,3 @@
-export class Dice {
-  value!: number;
+export interface Dice {
+  value: number;
 }

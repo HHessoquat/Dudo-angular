@@ -42,6 +42,9 @@ export class SaveGame {
   }
 
   retrieveSessionData(): boolean {
+    if (typeof window === 'undefined' || !window.sessionStorage) {
+      return false;
+    }
     const isSessionOn = sessionStorage.getItem('gameData');
     if (!isSessionOn) {
       return false;
