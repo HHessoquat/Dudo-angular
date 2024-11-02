@@ -20,11 +20,12 @@ import {AuthModalComponent} from "../auth-modal/auth-modal.component";
 import {AuthService} from "../../services/auth.service";
 import {Observable} from "rxjs";
 import {DiceService} from "../../services/dice.service";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-bet-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AuthModalComponent],
+  imports: [CommonModule, ReactiveFormsModule, AuthModalComponent, TranslateModule],
   templateUrl: './bet-form.component.html',
   styleUrl: './bet-form.component.scss',
 })

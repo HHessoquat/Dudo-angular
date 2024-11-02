@@ -16,14 +16,11 @@
     <h2>{{ player.name }}</h2>
     <p>
       <span class="infoTitle"
-        >dé<span *ngIf=" (diceManager.dices$ | async)?.[playerId] ?? 0 > 1"
-          >s</span
-        >
-      </span>
-      : {{ player.nbDiceLeft }}
+        >{{"PLAYER_DICE_LEFT" |translate}}
+      </span>: {{ player.nbDiceLeft }}
     </p>
     <p *ngIf="player.lastBet$ | async as lastBet">
-      <span class="infoTitle">enchère : </span>{{ lastBet.diceAmount }}&nbsp;{{
+      <span class="infoTitle">{{"PLAYER_CURRENT_BID" | translate}}: </span>{{ lastBet.diceAmount }}&nbsp;{{
         lastBet.faceValue
       }}
     </p>

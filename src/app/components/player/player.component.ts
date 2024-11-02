@@ -8,11 +8,12 @@ import { Subscription } from 'rxjs';
 import { PlayersService } from '../../services/players.service';
 import { DiceService } from '../../services/dice.service';
 import { DiceSet } from '../../models/diceSet.model';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-player',
   standalone: true,
-  imports: [CommonModule, DiceComponent],
+  imports: [CommonModule, DiceComponent, TranslateModule],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })

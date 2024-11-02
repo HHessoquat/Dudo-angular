@@ -33,8 +33,6 @@ export class MultiSettingsComponent implements OnInit {
     this.initForm();
     this.initFormObservables();
     this.addPlayersNameInput();
-    this.translateService.setDefaultLang("fr");
-    this.translateService.use("en");
   }
 
   private initControls(): void {

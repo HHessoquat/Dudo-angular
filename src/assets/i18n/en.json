@@ -3,9 +3,28 @@
   "LANDING_GAME_MODE_02":"Multi-player",
   "LANDING_GAME_MODE_03":"Multi + Bots",
 
-  "SETTING_PLAYER_NB_Player": "Nunber of Player",
+  "SETTING_PLAYER_NB_Player": "Number of Player",
   "SETTING_PLAYER_NAME": "Player's Name",
+  "SETTING_PLAYER_PLACEHOLDER": "Player",
   "SETTING_Player_Password": "Password",
   "SETTING_BOT_NAME": "Bot's Name",
-  "SETTING_BUTTON_VALIDATE": "Confirm"
+  "SETTING_BUTTON_VALIDATE": "Confirm",
+
+  "BETFORM_SHOW": "show",
+  "BETFORM_HIDE": "hide",
+  "BETFORM_SHOWDICE_STATIC" : "dice",
+  "BETFORM_AMOUNT": "Amount",
+  "BETFORM_VALUE": "Value",
+  "BETFORM_BUTTON_BID": "bid",
+  "BETFORM_BUTTON_EXACT": "exact",
+  "BETFORM_BUTTON_DUDO": "dudo",
+
+  "PLAYER_DICE_LEFT":  "Dice",
+  "PLAYER_CURRENT_BID": "Bid",
+
+  "ENDROUND_RESULT_ANNOUNCE": "There were",
+  "ENDROUND_LOSE_DICE": "loses a dice",
+  "ENDROUND_WIN_DICE": "get a dice back",
+  "ENDROUND_HAS_MAX_NB_DICE": "win the round, but can't have more dice",
+  "ENDROUND_NEXT_ROUND":"next round"
 }

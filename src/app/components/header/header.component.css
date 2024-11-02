@@ -1,0 +1,25 @@
+@charset "UTF-8";
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+header form {
+  margin: 1em;
+}
+header select {
+  padding: 8px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+  color: #333;
+  font-size: 16px;
+  appearance: none; /* Masque le style par défaut sur certains navigateurs */
+  -webkit-appearance: none; /* Masque aussi pour Safari */
+  -moz-appearance: none; /* Et pour Firefox */
+}
+
+/*# sourceMappingURL=header.component.css.map */

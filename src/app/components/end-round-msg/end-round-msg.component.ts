@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { SaveGame } from '../../services/save-game.service';
 import { PlayersService } from '../../services/players.service';
 import { DiceService } from '../../services/dice.service';
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-end-round-msg',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './end-round-msg.component.html',
   styleUrl: './end-round-msg.component.scss',
 })

@@ -1,0 +1,30 @@
+{
+  "LANDING_GAME_MODE_01":"EinzelSpieler",
+  "LANDING_GAME_MODE_02":"Multiplayer",
+  "LANDING_GAME_MODE_03":"Multi + Bots",
+
+  "SETTING_PLAYER_NB_Player": "Anzhal der Spieler",
+  "SETTING_PLAYER_NAME": "Spielername",
+  "SETTING_PLAYER_PLACEHOLDER": "Spieler",
+  "SETTING_Player_Password": "Passewort",
+  "SETTING_BOT_NAME": "Botname",
+  "SETTING_BUTTON_VALIDATE": "Bestätigen",
+
+  "BETFORM_SHOW": "Würfel anzeigen",
+  "BETFORM_HIDE": "Würfel verbergen",
+  "BETFORM_SHOWDICE_STATIC" : "",
+  "BETFORM_AMOUNT": "Anzhal",
+  "BETFORM_VALUE": "Wert",
+  "BETFORM_BUTTON_BID": "bieten",
+  "BETFORM_BUTTON_EXACT": "genau",
+  "BETFORM_BUTTON_DUDO": "dudo",
+
+  "PLAYER_DICE_LEFT":  "Würfeln",
+  "PLAYER_CURRENT_BID": "Einsatz",
+
+  "ENDROUND_RESULT_ANNOUNCE": "Es gab",
+  "ENDROUND_LOSE_DICE": "verliert einen Würfel",
+  "ENDROUND_WIN_DICE": "bekommt einen Würfel zurück",
+  "ENDROUND_HAS_MAX_NB_DICE": "gewinnt die Runde, hat aber bereits die maximale Anzahl an Würfeln",
+  "ENDROUND_NEXT_ROUND": "nächste Runde"
+}

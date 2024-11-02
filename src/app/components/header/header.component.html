@@ -1,3 +1,9 @@
 <header>
-  <button>{{translationConfig.currentLanguage$ | async}}</button>
+ <Form>
+   <Select [formControl]="langControl" ngDefaultControl>
+     @for (lang of LANGS; track $index) {
+       <option [value]="lang.code"> {{lang.label}}</option>
+     }
+   </Select>
+ </Form>
 </header>

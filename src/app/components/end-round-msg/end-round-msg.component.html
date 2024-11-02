@@ -1,14 +1,16 @@
 <div class="messageBox">
   <p>
-    Il y avait <strong>{{ diceResult.diceAmount }}</strong>
+    {{"ENDROUND_RESULT_ANNOUNCE" |translate}} <strong>{{ diceResult.diceAmount }}</strong>
     {{ diceResult.faceValue }}
   </p>
   <p *ngIf="loserName">
-    <strong>{{ loserName }}</strong> perd un dé.
+    <strong>{{ loserName }}</strong> {{"ENDROUND_LOSE_DICE" | translate}}.
   </p>
-  <p *ngIf="winnerName && winnerGetDice">{{ winnerName }} récupère un dé.</p>
+  <p *ngIf="winnerName && winnerGetDice">{{ winnerName }} {{"ENDROUND_WIN_DICE" |translate}}.</p>
   <p *ngIf="winnerName && !winnerGetDice && !loserName">
-    {{ winnerName }} gagne la manche, mais à déjà le nombre maximal de dés.
+    {{ winnerName }} {{"ENDROUND_HAS_MAX_NB_DICE" | translate}}.
   </p>
-  <button class="nextRoundBtn" (click)="onNext()">tour suivant</button>
+  <button class="nextRoundBtn" (click)="onNext()">
+    {{"ENDROUND_NEXT_ROUND" |translate}}
+  </button>
 </div>
