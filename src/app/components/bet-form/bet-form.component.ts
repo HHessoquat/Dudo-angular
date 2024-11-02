@@ -19,6 +19,7 @@ import { PlayersService } from '../../services/players.service';
 import {AuthModalComponent} from "../auth-modal/auth-modal.component";
 import {AuthService} from "../../services/auth.service";
 import {Observable} from "rxjs";
+import {DiceService} from "../../services/dice.service";
 
 @Component({
   selector: 'app-bet-form',
@@ -38,6 +39,7 @@ export class BetFormComponent implements OnInit {
     private game: GameService,
     protected betManager: BetService,
     private players: PlayersService,
+    private diceManager: DiceService,
     private authManager: AuthService,
     private gameSaver: SaveGame
   ) {}
@@ -122,6 +124,7 @@ export class BetFormComponent implements OnInit {
   }
   onbet(): void {
     this.game.setCurrentBet(this.diceAmount.value, this.faceValue.value);
+    this.diceManager.hideCurrentPlayerDice();
     this.players.nextPlayer();
     this.gameSaver.saveGame();
     this.betForm.updateValueAndValidity();
@@ -133,13 +136,13 @@ export class BetFormComponent implements OnInit {
 
   onShowDice() {
     if (this.areDiceVisible()) {
-      this.players.getActivePlayer().areDiceVisible = false;
+      this.players.getCurrentPlayer().areDiceVisible = false;
       return
     }
     this.authManager.showModal();
   }
 
   areDiceVisible(): boolean {
-    return this.players.getActivePlayer().areDiceVisible;
+    return this.players.getCurrentPlayer().areDiceVisible;
   }
 }

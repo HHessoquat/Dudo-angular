@@ -44,6 +44,12 @@ export class Player {
   toggleDiceVisibility(): void {
     this.areDiceVisible = !this.areDiceVisible;
   }
+  showDice() {
+    this.areDiceVisible = true;
+  }
+  hideDice(): void {
+    this.areDiceVisible = false;
+  }
 
   loseDice(): void {
     this.nbDiceLeft--;

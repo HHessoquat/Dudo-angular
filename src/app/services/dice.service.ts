@@ -4,6 +4,8 @@ import { GameSetting } from './gameSetting.service';
 import { Player } from '../entities/player.entity';
 import { DiceSet } from '../models/diceSet.model';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {PlayersService} from "./players.service";
+import {AuthService} from "./auth.service";
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,11 @@ export class DiceService {
   dices$!: Observable<DiceSet[]>;
   nbDice!: number;
 
-  constructor(private settings: GameSetting) {
+  constructor(
+    private settings: GameSetting,
+    private playersService: PlayersService,
+    private authService: AuthService
+  ) {
     this.diceSubject = new BehaviorSubject([
       { playerId: 0, dice: [{ value: 1 }] },
     ]);
@@ -47,6 +53,31 @@ export class DiceService {
     );
   }
 
+  showCurrentPlayerDice(password: String):void {
+    if (!this.authService.isModalOpen())
+      return;
+    const player = this.playersService.getCurrentPlayer();
+    if (this.authService.isPlayerAuthorized(password, player)) {
+      player.toggleDiceVisibility();
+    }
+  }
+
+  hideCurrentPlayerDice():void {
+    this.playersService.getCurrentPlayer().hideDice();
+  }
+
+  showAllDices(): void {
+    this.playersService.getActivePlayers().forEach((player) => {
+      player.showDice();
+    })
+  }
+
+  hideAllDices(): void {
+    this.playersService.getActivePlayers().forEach((player) => {
+      player.hideDice();
+    })
+  }
+
   reduceDiceValue(dice: Dice[][]) {
     const allDice: Dice[] = [];
     dice.forEach((diceSet) => diceSet.forEach((dice) => allDice.push(dice)));
@@ -78,6 +109,7 @@ export class DiceService {
       return acc + player.nbDiceLeft;
     }, 0);
   }
+
 
   hydrateDice(dices: DiceSet[], nbDice: number): void {
     this.diceSubject = new BehaviorSubject(dices);

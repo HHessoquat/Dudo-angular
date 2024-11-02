@@ -1,5 +1,14 @@
 <form>
-    <input type="text" [formControl]="userPassword">
-  <button type="button" (click)="showDice()">ok !</button>
-  <button type="button" (click)="closeModal()">annuler</button>
+  <h1>Entrez le mot de passe</h1>
+  <ul>
+    @for (error of errorMessages$ | async; track $index) {
+      <li>{{error}}</li>
+    }
+  </ul>
+  <div class="inputContainer">
+    <input type="text" [formControl]="userPassword"></div>
+  <div class="buttonContainer">
+    <button type="button" (click)="showDice()">ok !</button>
+    <button type="button" (click)="closeModal()">annuler</button>
+  </div>
 </form>

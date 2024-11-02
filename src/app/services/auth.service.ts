@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 import {Player} from "../entities/player.entity";
-import {PlayersService} from "./players.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +8,14 @@ import {PlayersService} from "./players.service";
 export class AuthService {
   showModalSubject: BehaviorSubject<boolean>
   showModal$: Observable<boolean>
-  errors!: String[];
+  errorsSubject!: BehaviorSubject<string[]>
+  errors$!: Observable<string[]>;
 
-  constructor(
-    private playersService: PlayersService,
-  ) {
+  constructor() {
     this.showModalSubject = new BehaviorSubject<boolean>(false);
     this.showModal$ = this.showModalSubject.asObservable();
-    this.errors = [];
+    this.errorsSubject = new BehaviorSubject<string[]>([]);
+    this.errors$ = this.errorsSubject.asObservable();
   }
   showModal() {
     this.showModalSubject.next(true);
@@ -28,28 +27,26 @@ export class AuthService {
   }
 
   clearErrors(): void {
-    this.errors = [];
+    this.errorsSubject.next([]);
+  }
+  isModalOpen(): boolean {
+    return this.showModalSubject.value;
   }
 
-  showDice(password: String): void {
-    if (!this.showModalSubject.value)
-      return;
-
+  isPlayerAuthorized(password: String, player: Player): boolean {
     this.clearErrors();
-    const player: Player = this.playersService.getActivePlayer();
 
     if (this.checkAuthorization(password,player)) {
-      this.revealDice(player);
       this.closeModal();
-      return;
+      return true;
     }
-    this.errors.push("Invalid password");
+
+    this.errorsSubject.next([...this.errorsSubject.value, "mot de passe incorrect"]);
+    return false;
   }
 
   checkAuthorization(password: String, player: Player): boolean{
     return password === player.password;
   }
-  revealDice(player: Player): void {
-    player.toggleDiceVisibility();
-  }
+
 }

@@ -17,7 +17,7 @@ export class GameService {
     private diceManager: DiceService,
     private roundManager: RoundService,
     private currentBet: BetService,
-    private players: PlayersService
+    private players: PlayersService,
   ) {}
   initGame(): void {
     this.endRound = false;
@@ -27,12 +27,14 @@ export class GameService {
   }
   initRound(): void {
     this.players.initRound();
+    this.diceManager.hideAllDices();
     this.diceManager.rollDice(this.players.getActivePlayers());
     this.diceManager.setNbDice(this.players.getActivePlayers());
     this.roundManager.setFirstPlayer();
   }
   resolveRound(trigger: 'dudo' | 'exact') {
     this.roundManager.resolveRound(trigger, this.diceManager.getAllDice());
+    this.diceManager.showAllDices();
     this.endRound = true;
 
   }
