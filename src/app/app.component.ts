@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import {HeaderComponent} from "./components/header/header.component";
 import {TranslateService} from "@ngx-translate/core";
 import {languages} from "./features/languages";
@@ -19,6 +19,6 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.translate.addLangs(languages.map(lang => lang.code))
     this.translate.setDefaultLang('en');
-    this.translate.use('fr');
+    this.translate.use( localStorage.getItem('lang') || 'fr');
   }
 }

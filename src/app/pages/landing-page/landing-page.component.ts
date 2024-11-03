@@ -10,11 +10,9 @@ import {TranslateModule, TranslateService} from "@ngx-translate/core";
   styleUrl: './landing-page.component.scss',
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private router: Router,private translate: TranslateService) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.translate.setDefaultLang('fr');
-    this.translate.use('fr');
   }
 
   onNavigateToGameSettings(gameMode: 'solo' | 'multi' | 'multiBot') {

@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.currentLanguage = this.translate.currentLang;
     console.log(this.currentLanguage);
+
     this.langControl = new FormControl(this.currentLanguage || this.translate.getDefaultLang())
     this.subscriptions = [];
     this.subscriptions.push(this.langControl.valueChanges.subscribe(lang => {
@@ -47,5 +48,6 @@ export class HeaderComponent implements OnInit {
 
   changeLang(lang: string): void {
     this.translate.use(lang);
+    localStorage.setItem('lang', lang);
   }
 }

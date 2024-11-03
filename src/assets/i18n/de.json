@@ -4,7 +4,7 @@
 
   "LANDING": {
     "GAME_MODE_01": "EinzelSpieler",
-    "GAME_MODE_02": "Multiplayer",
+    "GAME_MODE_02": "Mehrspieler",
     "GAME_MODE_03": "Multi + Bots"
   },
 
