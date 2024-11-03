@@ -33,7 +33,6 @@ export class PlaygroundComponent implements OnInit {
     const isSessionOn = this.gameSaver.retrieveSessionData();
     if (!isSessionOn) {
       this.gameManager.initGame();
-      this.gameManager.initRound();
       this.gameSaver.savesettings();
       this.gameSaver.saveGame();
       return;

@@ -1,30 +1,53 @@
 {
-  "LANDING_GAME_MODE_01":"EinzelSpieler",
-  "LANDING_GAME_MODE_02":"Multiplayer",
-  "LANDING_GAME_MODE_03":"Multi + Bots",
+  "BUTTON_SUBMIT": "Bestätigen",
+  "BUTTON_CANCEL": "Abbrechen",
 
-  "SETTING_PLAYER_NB_Player": "Anzhal der Spieler",
-  "SETTING_PLAYER_NAME": "Spielername",
-  "SETTING_PLAYER_PLACEHOLDER": "Spieler",
-  "SETTING_Player_Password": "Passewort",
-  "SETTING_BOT_NAME": "Botname",
-  "SETTING_BUTTON_VALIDATE": "Bestätigen",
+  "LANDING": {
+    "GAME_MODE_01": "EinzelSpieler",
+    "GAME_MODE_02": "Multiplayer",
+    "GAME_MODE_03": "Multi + Bots"
+  },
 
-  "BETFORM_SHOW": "Würfel anzeigen",
-  "BETFORM_HIDE": "Würfel verbergen",
-  "BETFORM_SHOWDICE_STATIC" : "",
-  "BETFORM_AMOUNT": "Anzhal",
-  "BETFORM_VALUE": "Wert",
-  "BETFORM_BUTTON_BID": "bieten",
-  "BETFORM_BUTTON_EXACT": "genau",
-  "BETFORM_BUTTON_DUDO": "dudo",
+  "SETTINGS": {
+    "PLAYER_NB_Player": "Anzhal der Spieler",
+    "PLAYER_NAME": "Spielername",
+    "PLAYER_PLACEHOLDER": "Spieler",
+    "Player_Password": "Passewort",
+    "BOT_NAME": "Botname",
+    "BUTTON_VALIDATE": "Bestätigen"
+  },
 
-  "PLAYER_DICE_LEFT":  "Würfeln",
-  "PLAYER_CURRENT_BID": "Einsatz",
+  "BETFORM": {
+    "SHOW": "Würfel anzeigen",
+    "HIDE": "Würfel verbergen",
+    "SHOWDICE_STATIC": "",
+    "AMOUNT": "Anzhal",
+    "VALUE": "Wert",
+    "BUTTON_BID": "bieten",
+    "BUTTON_EXACT": "genau",
+    "BUTTON_DUDO": "dudo"
+  },
 
-  "ENDROUND_RESULT_ANNOUNCE": "Es gab",
-  "ENDROUND_LOSE_DICE": "verliert einen Würfel",
-  "ENDROUND_WIN_DICE": "bekommt einen Würfel zurück",
-  "ENDROUND_HAS_MAX_NB_DICE": "gewinnt die Runde, hat aber bereits die maximale Anzahl an Würfeln",
-  "ENDROUND_NEXT_ROUND": "nächste Runde"
+  "PLAYER": {
+    "DICE_LEFT": "Würfeln",
+    "CURRENT_BID": "Einsatz"
+  },
+
+  "ENDROUND": {
+    "RESULT_ANNOUNCE": "Es gab",
+    "LOSE_DICE": "verliert einen Würfel",
+    "WIN_DICE": "bekommt einen Würfel zurück",
+    "HAS_MAX_NB_DICE": "gewinnt die Runde, hat aber bereits die maximale Anzahl an Würfeln",
+    "NEXT_ROUND": "nächste Runde"
+  },
+
+  "AUTHMODAL": {
+    "HEADER": "Passwort eingeben"
+  },
+
+  "ENDGAME_MESSAGE": {
+    "HEADER": "{{winner}} gewinnt das Spiel",
+    "NEW_GAME": "neues Spiel",
+    "RESTART_GAME": "Spiel neu starten"
+  }
 }

@@ -1,27 +1,53 @@
 {
-  "LANDING_GAME_MODE_01": "Solo",
-  "LANDING_GAME_MODE_02": "Multi-joueur",
-  "LANDING_GAME_MODE_03": "Multi + Bots",
-  "SETTING_PLAYER_NB_Player": "Nombre de joueur",
-  "SETTING_PLAYER_NAME": "Nom du joueur",
-  "SETTING_PLAYER_PLACEHOLDER": "Joueur",
-  "SETTING_Player_Password": "Mot de passe",
-  "SETTING_BOT_NAME": "Nom du Bot",
-  "SETTING_BUTTON_VALIDATE": "Valider",
-  "BETFORM_SHOW": "montrer",
-  "BETFORM_HIDE": "cacher",
-  "BETFORM_SHOWDICE_STATIC": "les dés",
-  "BETFORM_AMOUNT": "Nombre",
-  "BETFORM_VALUE": "Valeur",
-  "BETFORM_BUTTON_BID": "parier",
-  "BETFORM_BUTTON_EXACT": "exact",
-  "BETFORM_BUTTON_DUDO": "dudo",
-  "PLAYER_DICE_LEFT": "Dés ",
-  "PLAYER_CURRENT_BID": "enchère ",
+  "BUTTON_SUBMIT": "Valider",
+  "BUTTON_CANCEL": "annuler",
 
-  "ENDROUND_RESULT_ANNOUNCE": "Il y avait",
-  "ENDROUND_LOSE_DICE": "perd un dé",
-  "ENDROUND_WIN_DICE": "récupère un dé",
-  "ENDROUND_HAS_MAX_NB_DICE": "gagne la manche, mais a déjà le nombre maximal de dés",
-  "ENDROUND_NEXT_ROUND":"tour suivant"
+  "LANDING": {
+    "GAME_MODE_01": "Solo",
+    "GAME_MODE_02": "Multi-joueur",
+    "GAME_MODE_03": "Multi + Bots"
+  },
+
+  "SETTINGS": {
+    "PLAYER_NB_Player": "Nombre de joueur",
+    "PLAYER_NAME": "Nom du joueur",
+    "PLAYER_PLACEHOLDER": "Joueur",
+    "Player_Password": "Mot de passe",
+    "BOT_NAME": "Nom du Bot",
+    "BUTTON_VALIDATE": "Valider"
+  },
+
+  "BETFORM": {
+    "SHOW": "montrer",
+    "HIDE": "cacher",
+    "SHOWDICE_STATIC": "les dés",
+    "AMOUNT": "Nombre",
+    "VALUE": "Valeur",
+    "BUTTON_BID": "parier",
+    "BUTTON_EXACT": "exact",
+    "BUTTON_DUDO": "dudo"
+  },
+
+  "PLAYER": {
+    "DICE_LEFT": "Dés ",
+    "CURRENT_BID": "enchère "
+  },
+
+  "ENDROUND": {
+    "RESULT_ANNOUNCE": "Il y avait",
+    "LOSE_DICE": "perd un dé",
+    "WIN_DICE": "récupère un dé",
+    "HAS_MAX_NB_DICE": "gagne la manche, mais a déjà le nombre maximal de dés",
+    "NEXT_ROUND": "tour suivant"
+  },
+
+  "AUTHMODAL": {
+    "HEADER": "Entrez le mot de passe"
+  },
+
+  "ENDGAME_MESSAGE": {
+    "HEADER": "{{winner}} remporte la partie",
+    "NEW_GAME": "nouvelle partie",
+  "RESTART_GAME": "recommencer la partie"
+  }
 }

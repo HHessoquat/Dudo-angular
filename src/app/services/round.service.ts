@@ -97,4 +97,13 @@ export class RoundService {
   hydrateRound(roundResult: RoundResult ):void {
     this.roundResult = roundResult;
   }
+
+  reset():void {
+    this.roundResult = {
+      diceAmount: 0,
+      faceValue: 0,
+      roundLoserId: 0,
+      roundWinnerId: -1
+    };
+  }
 }

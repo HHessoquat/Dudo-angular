@@ -1,23 +1,53 @@
 {
-  "LANDING_GAME_MODE_01":"Jeden hráč",
-  "LANDING_GAME_MODE_02":"více hráčů",
-  "LANDING_GAME_MODE_03":"více + roboti",
+  "BUTTON_SUBMIT": "Valider",
+  "BUTTON_CANCEL": "Zrušit",
 
-  "BETFORM_SHOW": "Zobrazit",
-  "BETFORM_HIDE": "skrýt",
-  "BETFORM_SHOWDICE_STATIC" : "kostky",
-  "BETFORM_AMOUNT": "Počet",
-  "BETFORM_VALUE": "Hodnota",
-  "BETFORM_BUTTON_BID": "přihodit",
-  "BETFORM_BUTTON_EXACT": "přesně",
-  "BETFORM_BUTTON_DUDO": "dudo",
+  "LANDING": {
+    "GAME_MODE_01": "Jeden hráč",
+    "GAME_MODE_02": "více hráčů",
+    "GAME_MODE_03": "více + roboti"
+  },
 
-  "PLAYER_DICE_LEFT":  "Kostky",
-  "PLAYER_CURRENT_BID": "Přihazovaná",
+  "SETTINGS": {
+    "PLAYER_NB_Player": "Počet hráčů",
+    "PLAYER_NAME": "Jméno hráče",
+    "PLAYER_PLACEHOLDER": "Hráč",
+    "Player_Password": "Heslo",
+    "BOT_NAME": "Jméno robota",
+    "BUTTON_VALIDATE": "Potvrdit"
+  },
 
-  "ENDROUND_RESULT_ANNOUNCE": "Bylo",
-  "ENDROUND_LOSE_DICE": "ztrácí kostku",
-  "ENDROUND_WIN_DICE": "dostává kostku zpět",
-  "ENDROUND_HAS_MAX_NB_DICE": "vyhrává kolo, ale už má maximální počet kostek",
-  "ENDROUND_NEXT_ROUND": "další kolo"
+  "BETFORM": {
+    "SHOW": "Zobrazit",
+    "HIDE": "skrýt",
+    "SHOWDICE_STATIC": "kostky",
+    "AMOUNT": "Počet",
+    "VALUE": "Hodnota",
+    "BUTTON_BID": "přihodit",
+    "BUTTON_EXACT": "přesně",
+    "BUTTON_DUDO": "dudo"
+  },
+
+  "PLAYER": {
+    "DICE_LEFT": "Kostky",
+    "CURRENT_BID": "Přihazovaná"
+  },
+
+  "ENDROUND": {
+    "RESULT_ANNOUNCE": "Bylo",
+    "LOSE_DICE": "ztrácí kostku",
+    "WIN_DICE": "dostává kostku zpět",
+    "HAS_MAX_NB_DICE": "vyhrává kolo, ale už má maximální počet kostek",
+    "NEXT_ROUND": "další kolo"
+  },
+
+  "AUTHMODAL": {
+    "HEADER": "Zadejte heslo"
+  },
+
+  "ENDGAME_MESSAGE": {
+    "HEADER": "{{winner}} vyhrává hru",
+    "NEW_GAME": "nová hra",
+    "RESTART_GAME": "znovu zahájit hru"
+  }
 }

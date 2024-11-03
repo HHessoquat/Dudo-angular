@@ -6,16 +6,16 @@
   >
     {{
       (areDiceVisible()
-        ? ("BETFORM_HIDE" | translate)
-        : ("BETFORM_SHOW" | translate)
+        ? ("BETFORM.HIDE" | translate)
+        : ("BETFORM.SHOW" | translate)
       ) |titlecase
     }}
-    {{"BETFORM_SHOWDICE_STATIC" | translate}}
+    {{"BETFORM.SHOWDICE_STATIC" | translate}}
   </button>
 
   <div class="formContainer">
     <div class="inputContainer">
-      <label for="diceAmount">{{"BETFORM_AMOUNT" | translate}}</label
+      <label for="diceAmount">{{"BETFORM.AMOUNT" | translate}}</label
       ><button type="button" class="numberBtn" (click)="onIncrementDice()">
         +
       </button>
@@ -32,7 +32,7 @@
       </button>
     </div>
     <div class="inputContainer">
-      <label for="faceValue">{{ "BETFORM_VALUE" | translate }}</label
+      <label for="faceValue">{{ "BETFORM.VALUE" | translate }}</label
       ><button type="button" class="numberBtn" (click)="onIncrementFace()">
         +
       </button>
@@ -50,13 +50,13 @@
   </div>
   <div class="actionBtnContainer">
     <button type="button" (click)="onbet()" [disabled]="betForm.invalid">
-      {{ "BETFORM_BUTTON_BID" | translate }}
+      {{ "BETFORM.BUTTON_BID" | translate }}
     </button>
     <button type="button" (click)="onEndRound('exact')" [disabled]="(betManager.currentBet$ | async)?.diceAmount === 0">
-      {{"BETFORM_BUTTON_EXACT" | translate}}
+      {{"BETFORM.BUTTON_EXACT" | translate}}
     </button>
     <button type="button" (click)="onEndRound('dudo')" [disabled]="(betManager.currentBet$ | async)?.diceAmount === 0">
-      {{"BETFORM_BUTTON_DUDO" |translate}}
+      {{"BETFORM.BUTTON_DUDO" |translate}}
     </button>
   </div>
 </form>

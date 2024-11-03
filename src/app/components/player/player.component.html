@@ -16,11 +16,11 @@
     <h2>{{ player.name }}</h2>
     <p>
       <span class="infoTitle"
-        >{{"PLAYER_DICE_LEFT" |translate}}
+        >{{"PLAYER.DICE_LEFT" |translate}}
       </span>: {{ player.nbDiceLeft }}
     </p>
     <p *ngIf="player.lastBet$ | async as lastBet">
-      <span class="infoTitle">{{"PLAYER_CURRENT_BID" | translate}}: </span>{{ lastBet.diceAmount }}&nbsp;{{
+      <span class="infoTitle">{{"PLAYER.CURRENT_BID" | translate}}: </span>{{ lastBet.diceAmount }}&nbsp;{{
         lastBet.faceValue
       }}
     </p>

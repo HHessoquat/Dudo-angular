@@ -76,4 +76,19 @@ export class SaveGame {
     return true;
   }
 
+  resetGame():void {
+    sessionStorage.clear();
+    this.settings.reset()
+    this.game.reset();
+    this.round.reset();
+    this.players.reset();
+    this.dice.reset();
+    this.bet.reset();
+  }
+
+  restartGame() {
+    this.dice.reset();
+    this.bet.reset();
+    this.round.reset();
+  }
 }

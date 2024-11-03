@@ -39,4 +39,10 @@ export class GameSetting {
       players: this.players,
     };
   }
+
+  reset() {
+    this.nbPlayer = 0;
+    this.nbBots = 0;
+    this.players = [];
+  }
 }

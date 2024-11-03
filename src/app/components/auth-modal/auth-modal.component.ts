@@ -4,13 +4,15 @@ import {AuthService} from "../../services/auth.service";
 import {DiceService} from "../../services/dice.service";
 import {Observable} from "rxjs";
 import {AsyncPipe} from "@angular/common";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-auth-modal',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    AsyncPipe
+    AsyncPipe,
+    TranslateModule
   ],
   templateUrl: './auth-modal.component.html',
   styleUrl: './auth-modal.component.scss'

@@ -24,6 +24,7 @@ export class GameService {
     this.players.setPlayers();
     this.players.setActivePlayers();
     this.initEndGameObservable();
+    this.initRound();
   }
   initRound(): void {
     this.players.initRound();
@@ -52,10 +53,14 @@ export class GameService {
   }
 
   initEndGameObservable(): void {
-    this.endGameSubject = new BehaviorSubject(
-      this.players.getActivePlayers().length <= 1
-    );
-    this.endGame$ = this.endGameSubject.asObservable();
+    if (!this.endGameSubject) {
+      this.endGameSubject = new BehaviorSubject(
+        this.players.getActivePlayers().length <= 1
+      );
+      this.endGame$ = this.endGameSubject.asObservable();
+      return;
+    }
+    this.endGameSubject.next(false);
   }
   setCurrentBet(diceAmount: number, faceValue: number): void {
     this.currentBet.setNewBet(diceAmount, faceValue);
@@ -75,5 +80,10 @@ export class GameService {
     return {
       endRound: this.endRound,
     };
+  }
+
+  reset():void {
+    this.endRound = false;
+    this.endGameSubject.next(false);
   }
 }

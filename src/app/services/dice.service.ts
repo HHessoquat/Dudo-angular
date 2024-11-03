@@ -122,4 +122,9 @@ export class DiceService {
       nbDice: this.nbDice,
     };
   }
+
+  reset(): void {
+    this.diceSubject.next([]);
+    this.nbDice = 0;
+  }
 }

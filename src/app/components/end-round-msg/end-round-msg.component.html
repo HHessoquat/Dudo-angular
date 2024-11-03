@@ -1,16 +1,16 @@
 <div class="messageBox">
   <p>
-    {{"ENDROUND_RESULT_ANNOUNCE" |translate}} <strong>{{ diceResult.diceAmount }}</strong>
+    {{"ENDROUND.RESULT_ANNOUNCE" |translate}} <strong>{{ diceResult.diceAmount }}</strong>
     {{ diceResult.faceValue }}
   </p>
   <p *ngIf="loserName">
-    <strong>{{ loserName }}</strong> {{"ENDROUND_LOSE_DICE" | translate}}.
+    <strong>{{ loserName }}</strong> {{"ENDROUND.LOSE_DICE" | translate}}.
   </p>
-  <p *ngIf="winnerName && winnerGetDice">{{ winnerName }} {{"ENDROUND_WIN_DICE" |translate}}.</p>
+  <p *ngIf="winnerName && winnerGetDice">{{ winnerName }} {{"ENDROUND.WIN_DICE" |translate}}.</p>
   <p *ngIf="winnerName && !winnerGetDice && !loserName">
-    {{ winnerName }} {{"ENDROUND_HAS_MAX_NB_DICE" | translate}}.
+    {{ winnerName }} {{"ENDROUND.HAS_MAX_NB_DICE" | translate}}.
   </p>
   <button class="nextRoundBtn" (click)="onNext()">
-    {{"ENDROUND_NEXT_ROUND" |translate}}
+    {{"ENDROUND.NEXT_ROUND" |translate}}
   </button>
 </div>

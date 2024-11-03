@@ -1,30 +1,53 @@
 {
-  "LANDING_GAME_MODE_01":"Solo",
-  "LANDING_GAME_MODE_02":"Multi-player",
-  "LANDING_GAME_MODE_03":"Multi + Bots",
+  "BUTTON_SUBMIT": "Submit",
+  "BUTTON_CANCEL": "Cancel",
 
-  "SETTING_PLAYER_NB_Player": "Number of Player",
-  "SETTING_PLAYER_NAME": "Player's Name",
-  "SETTING_PLAYER_PLACEHOLDER": "Player",
-  "SETTING_Player_Password": "Password",
-  "SETTING_BOT_NAME": "Bot's Name",
-  "SETTING_BUTTON_VALIDATE": "Confirm",
+  "LANDING": {
+    "GAME_MODE_01": "Solo",
+    "GAME_MODE_02": "Multi-player",
+    "GAME_MODE_03": "Multi + Bots"
+  },
 
-  "BETFORM_SHOW": "show",
-  "BETFORM_HIDE": "hide",
-  "BETFORM_SHOWDICE_STATIC" : "dice",
-  "BETFORM_AMOUNT": "Amount",
-  "BETFORM_VALUE": "Value",
-  "BETFORM_BUTTON_BID": "bid",
-  "BETFORM_BUTTON_EXACT": "exact",
-  "BETFORM_BUTTON_DUDO": "dudo",
+  "SETTINGS": {
+    "PLAYER_NB_Player": "Number of Player",
+    "PLAYER_NAME": "Player's Name",
+    "PLAYER_PLACEHOLDER": "Player",
+    "Player_Password": "Password",
+    "BOT_NAME": "Bot's Name",
+    "BUTTON_VALIDATE": "Confirm"
+  },
 
-  "PLAYER_DICE_LEFT":  "Dice",
-  "PLAYER_CURRENT_BID": "Bid",
+  "BETFORM": {
+    "SHOW": "show",
+    "HIDE": "hide",
+    "SHOWDICE_STATIC": "dice",
+    "AMOUNT": "Amount",
+    "VALUE": "Value",
+    "BUTTON_BID": "bid",
+    "BUTTON_EXACT": "exact",
+    "BUTTON_DUDO": "dudo"
+  },
 
-  "ENDROUND_RESULT_ANNOUNCE": "There were",
-  "ENDROUND_LOSE_DICE": "loses a dice",
-  "ENDROUND_WIN_DICE": "get a dice back",
-  "ENDROUND_HAS_MAX_NB_DICE": "win the round, but can't have more dice",
-  "ENDROUND_NEXT_ROUND":"next round"
+  "PLAYER": {
+    "DICE_LEFT": "Dice",
+    "CURRENT_BID": "Bid"
+  },
+
+  "ENDROUND": {
+    "RESULT_ANNOUNCE": "There were",
+    "LOSE_DICE": "loses a dice",
+    "WIN_DICE": "get a dice back",
+    "HAS_MAX_NB_DICE": "win the round, but can't have more dice",
+    "NEXT_ROUND": "next round"
+  },
+
+  "AUTHMODAL": {
+    "HEADER": "Enter password"
+  },
+
+  "ENDGAME_MESSAGE": {
+    "HEADER": "{{winner}} win the game",
+    "NEW_GAME": "new game",
+    "RESTART_GAME": "play again"
+  }
 }

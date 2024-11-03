@@ -1,5 +1,5 @@
 <form>
-  <h1>Entrez le mot de passe</h1>
+  <h1>{{"AUTHMODAL.HEADER" | translate}}</h1>
   <ul>
     @for (error of errorMessages$ | async; track $index) {
       <li>{{error}}</li>
@@ -8,7 +8,7 @@
   <div class="inputContainer">
     <input type="text" [formControl]="userPassword"></div>
   <div class="buttonContainer">
-    <button type="button" (click)="showDice()">ok !</button>
-    <button type="button" (click)="closeModal()">annuler</button>
+    <button type="button" (click)="showDice()">{{ "BUTTON_SUBMIT" | translate }}</button>
+    <button type="button" (click)="closeModal()">{{ "BUTTON_CANCEL" | translate }}</button>
   </div>
 </form>

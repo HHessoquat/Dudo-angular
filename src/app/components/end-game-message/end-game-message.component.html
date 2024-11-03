@@ -1,1 +1,5 @@
-<p>end-game-message works!</p>
+<form>
+  <h1>{{"ENDGAME_MESSAGE.HEADER" | translate:winner}}</h1>
+  <button type="button" (click)="onNewGame()">{{"ENDGAME_MESSAGE.NEW_GAME" | translate}}</button>
+  <button type="button" (click)="onNewGameWithSameSettings()" >{{"ENDGAME_MESSAGE.RESTART_GAME" | translate}}</button>
+</form>

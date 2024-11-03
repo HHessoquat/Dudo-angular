@@ -130,4 +130,10 @@ export class PlayersService {
     };
   }
 
+  reset(): void {
+    this.allPlayers = []
+    this.nbActivePlayers = 0;
+    this.activePlayersSubject.next([]);
+    this.currentPlayerSubject.next(0);
+  }
 }
