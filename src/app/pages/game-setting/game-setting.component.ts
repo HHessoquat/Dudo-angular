@@ -54,11 +54,9 @@ export class GameSettingComponent implements OnInit {
     });
   }
   onSubmit() {
-    this.gameSettings.hydrateSettings(
-      this.gameMode,
-      true,
+    this.gameSettings.setMultiplayerSettings(
+      this.playerSetting.get('players')?.value as UserInput[],
       parseInt(this.playerSetting.get('nbPlayers')?.value),
-      this.playerSetting.get('players')?.value as UserInput[]
     );
     this.router.navigateByUrl('/playground');
   }

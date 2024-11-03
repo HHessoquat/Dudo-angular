@@ -59,11 +59,19 @@ export class SaveGame {
 
     this.settings.hydrateSettings(
       settings.gameMode,
-      settings.showNbDice,
+      settings.nbBots,
       settings.nbPlayer,
       settings.players,
-      settings.nbBots
+      settings.showNbTotalDice,
+      settings.showNbDiceByPlayer,
+      settings.showLastBet,
+      settings.exactRule,
+      settings.firstPlayerSetsRotation,
+      settings.openCloseRound,
+      settings.nbFacePerDice,
+      settings.nbDicePerPlayer
     );
+
     this.round.hydrateRound(round.roundResult);
     this.players.hydratePlayers(
       players.playersData,
