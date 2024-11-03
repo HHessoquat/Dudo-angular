@@ -33,6 +33,10 @@
     "CURRENT_BID": "enchère "
   },
 
+"PLAYERLOST": {
+  "MESSAGE": "a perdu"
+},
+
   "ENDROUND": {
     "RESULT_ANNOUNCE": "Il y avait",
     "LOSE_DICE": "perd un dé",

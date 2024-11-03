@@ -32,6 +32,9 @@
     "DICE_LEFT": "Kostky",
     "CURRENT_BID": "Přihazovaná"
   },
+  "PLAYERLOST": {
+    "MESSAGE": "prohrál/a"
+  },
 
   "ENDROUND": {
     "RESULT_ANNOUNCE": "Bylo",

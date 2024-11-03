@@ -4,7 +4,7 @@
 
   "LANDING": {
     "GAME_MODE_01": "Solo",
-    "GAME_MODE_02": "Multi-player",
+    "GAME_MODE_02": "Multiplayer",
     "GAME_MODE_03": "Multi + Bots"
   },
 
@@ -31,6 +31,10 @@
   "PLAYER": {
     "DICE_LEFT": "Dice",
     "CURRENT_BID": "Bid"
+  },
+
+  "PLAYERLOST": {
+    "MESSAGE": "lost"
   },
 
   "ENDROUND": {

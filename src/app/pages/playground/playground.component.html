@@ -8,7 +8,10 @@
   </ng-container>
 
   <ng-container *ngFor="let player of players.allPlayers">
-    <app-player-lost *ngIf="!player.isPlaying"></app-player-lost>
+    <app-player-lost
+      class="{{ player.position }}"
+      [playerId]="player.id"
+      *ngIf="!player.isPlaying"></app-player-lost>
   </ng-container>
 
   <div *ngIf="!gameManager.endRound" class="centerArea">

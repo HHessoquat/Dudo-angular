@@ -1,6 +1,3 @@
-$primary-color: #079a6e;
-$disabled: #079a6e5a;
-
 .gameModeContainer {
   display: flex;
   flex-direction: column;
@@ -9,10 +6,11 @@ $disabled: #079a6e5a;
   gap: 10%;
   height: 100vh;
 }
+
 button {
-  background-color: $primary-color;
+  background-color: #079a6e;
   border: none;
-  box-shadow: #00000040 4px 4px 4px;
+  box-shadow: rgba(0, 0, 0, 0.2509803922) 4px 4px 4px;
   min-width: 30%;
   padding: 20px 40px;
   border-radius: 8px;
@@ -20,10 +18,13 @@ button {
   font-weight: bold;
   font-size: 15pt;
   color: white;
-  &:hover {
-    transform: scale(1.1, 1.1);
-  }
 }
+button:hover {
+  transform: scale(1.1, 1.1);
+}
+
 .deactivated {
-  background-color:  $disabled;
+  background-color: rgba(7, 154, 110, 0.3529411765);
 }
+
+/*# sourceMappingURL=landing-page.component.css.map */

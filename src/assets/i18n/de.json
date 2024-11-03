@@ -33,6 +33,10 @@
     "CURRENT_BID": "Einsatz"
   },
 
+  "PLAYERLOST": {
+    "MESSAGE": "verliert"
+  },
+
   "ENDROUND": {
     "RESULT_ANNOUNCE": "Es gab",
     "LOSE_DICE": "verliert einen Würfel",
